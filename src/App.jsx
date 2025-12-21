@@ -4,7 +4,7 @@ import DriverCard from './components/DriverCard';
 import TeamMember from './components/TeamMember';
 import SponsorsSlider from './components/SponsorsSlider';
 import FAQ from './components/FAQ';
-import './styles/index.css';
+import './index.css';
 
 function App() {
   const drivers = [

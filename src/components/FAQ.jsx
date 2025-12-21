@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/components.css';
+import './components.css';
 
 const FAQSection = () => {
     const [openIndex, setOpenIndex] = useState(null);
