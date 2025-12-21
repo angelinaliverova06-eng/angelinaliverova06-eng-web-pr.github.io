@@ -1,0 +1,49 @@
+@font-face {
+    font-family: 'Gothic60';
+    src: url('./fonts/Gothic60-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TT Gentlemens Trial 1-100';
+    src: url('./fonts/TT_Gentlemens_Trial_Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Gothic60', serif;
+    background-color: #fff;
+    color: #333;
+    line-height: 1.6;
+}
+.App {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1, h2, h3, h4 {
+    font-weight: lighter;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+h3 {
+    font-size: 1.8rem;
+    margin: 1.5rem 0 1rem;
+}

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import './components.css';
+import '../components.css';
 
 function SponsorsSlider() {
   const sliderLeftRef = useRef(null);
