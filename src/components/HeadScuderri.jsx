@@ -1,30 +1,49 @@
-import React, { useState } from "react";
-import "../components.css";
+import React from "react";
+import "../components2.css";
 
-const HeadScuderri = () => {
-  const [showForm, setShowForm] = useState(false);
-  const [contactType, setContactType] = useState("general");
-
-  const menuItems = [
-    "Главная",
-    "доставленная",
-    "БОЛЬШЕ 8–26",
-    "ПАЛОТЫ ТРЕСКИ",
-    "НОВОСТИ",
-    "ПАРТНЁРЫ",
-    "ОБА",
-    "КОНТАКТЫ",
-  ];
-
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+const HeadScuderri = ({ isPartnersOpen, togglePartners }) => {
+  // ========== СОСТОЯНИЯ КОМПОНЕНТА ==========
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [isPartnersHovered, setIsPartnersHovered] = React.useState(false);
+  const [formData, setFormData] = React.useState({
+    name: "",
     email: "",
-    phone: "",
-    subject: "",
     message: "",
+    phone: "",
   });
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [submitMessage, setSubmitMessage] = React.useState("");
+  const [submitStatus, setSubmitStatus] = React.useState("");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
+  const modalRef = React.useRef(null);
+  const animationRef = React.useRef(null);
+  const buttonRef = React.useRef(null);
+
+  // ========== ЭФФЕКТЫ ==========
+  React.useEffect(() => {
+    const savedData = localStorage.getItem("ferrariContactForm");
+    if (savedData) {
+      setFormData(JSON.parse(savedData));
+    }
+  }, []);
+
+  React.useEffect(() => {
+    localStorage.setItem("ferrariContactForm", JSON.stringify(formData));
+  }, [formData]);
+
+  React.useEffect(() => {
+    if (isModalOpen) {
+      openModalAnimation();
+    }
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [isModalOpen]);
+
+  // ========== ОБРАБОТЧИКИ ФОРМЫ ==========
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -35,211 +54,295 @@ const HeadScuderri = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Валидация
-    if (!formData.email.includes("@")) {
-      alert("Введите корректный email");
-      return;
-    }
+    setIsSubmitting(true);
+    setSubmitMessage("");
+    setSubmitStatus("");
 
     try {
-      // Отправка данных
-      console.log("Отправка данных:", formData);
-
-      // Имитация отправки
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      alert("Ваше сообщение отправлено команде Ferrari!");
-      setShowForm(false);
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        subject: "",
-        message: "",
+      const response = await fetch("https://formcarry.com/s/YOUR_FORM_ID", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
+
+      const result = await response.json();
+
+      if (result.code === 200) {
+        setSubmitStatus("success");
+        setSubmitMessage("Сообщение успешно отправлено!");
+        setFormData({ name: "", email: "", message: "", phone: "" });
+        localStorage.removeItem("ferrariContactForm");
+        setTimeout(() => setIsModalOpen(false), 3000);
+      } else {
+        setSubmitStatus("error");
+        setSubmitMessage("Ошибка при отправке. Попробуйте еще раз.");
+      }
     } catch (error) {
-      alert("Ошибка при отправке. Попробуйте еще раз.");
+      setSubmitStatus("error");
+      setSubmitMessage("Сетевая ошибка. Проверьте подключение к интернету.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
+  // ========== АНИМАЦИИ ==========
+  const openModalAnimation = () => {
+    if (!modalRef.current || !buttonRef.current) return;
+
+    const modal = modalRef.current;
+    const button = buttonRef.current;
+    const buttonRect = button.getBoundingClientRect();
+
+    modal.style.opacity = "0";
+    modal.style.transform = `translate(${buttonRect.left}px, ${buttonRect.top}px)`;
+    modal.style.width = `${buttonRect.width}px`;
+    modal.style.height = `${buttonRect.height}px`;
+
+    let startTime = null;
+    const duration = 500;
+
+    const animate = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const progress = timestamp - startTime;
+      const percentage = Math.min(progress / duration, 1);
+      const easeOutCubic = 1 - Math.pow(1 - percentage, 3);
+
+      modal.style.opacity = easeOutCubic;
+      modal.style.transform = `translate(0, 0)`;
+      modal.style.width = `90%`;
+      modal.style.height = `auto`;
+
+      if (percentage < 1) {
+        animationRef.current = requestAnimationFrame(animate);
+      }
+    };
+
+    animationRef.current = requestAnimationFrame(animate);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  // ========== РЕНДЕРИНГ ==========
   return (
     <div className="head-scuderri">
-      {/* Шапка с навигацией */}
-      <div>
-        <img
-          src="фото/logo.png"
-          alt="Ferrari Logo"
-          width="66px"
-          height="66px"
-        />
+      {/* ========== ВИДЕО ФОН ========== */}
+      <div className="background-container">
+        <video className="background-video" autoPlay muted loop playsInline>
+          <source src="/videos/ferrari-background.mp4" type="video/mp4" />
+          <img src="/images/ferrari-bg.jpg" alt="Ferrari Background" />
+        </video>
+        <div className="video-overlay"></div>
       </div>
 
-      <header className="scuderri-header">
-        <div className="scuderri-header-container">
-          <nav className="scuderri-desktop-nav">
-            {menuItems.map((item, index) => (
-              <div key={index} className="nav-item-wrapper">
-                <a href="#" className="scuderri-nav-link">
-                  {item}
-                </a>
-              </div>
-            ))}
+      {/* ========== ЧЕРНАЯ ПОЛОСА НАВИГАЦИИ ========== */}
+      <header className="header-black">
+        <div className="container">
+          <div className="logo">
+            <img
+              src="/logos/ferrari-logo.png"
+              alt="Scuderia Ferrari"
+              className="logo-img"
+            />
+          </div>
+
+          <nav className="desktop-nav">
+            <ul className="nav-list">
+              <li className="nav-item">Главная</li>
+              <li className="nav-item">Достижения</li>
+              <li className="nav-item">Болид</li>
+              <li className="nav-item">Пилоты</li>
+              <li className="nav-item">Трассы</li>
+              <li className="nav-item">Новости</li>
+
+              {/* Пункт Партнеры с выпадающим меню при наведении */}
+              <li
+                className="nav-item partners-item"
+                onMouseEnter={() => setIsPartnersHovered(true)}
+                onMouseLeave={() => setIsPartnersHovered(false)}
+              >
+                ПАРТНЕРЫ <span className="arrow">▼</span>
+                {/* Серое окошко с двумя пунктами */}
+                <div
+                  className={`partners-dropdown ${
+                    isPartnersHovered ? "show" : ""
+                  }`}
+                >
+                  <div className="dropdown-content">
+                    <div className="dropdown-item">
+                      Ключевые фигуры команды Феррари
+                    </div>
+                    <div className="dropdown-item">спонсоры</div>
+                  </div>
+                </div>
+              </li>
+
+              <li className="nav-item">Кью</li>
+              <li className="nav-item">Контакты</li>
+            </ul>
           </nav>
+
+          <button
+            className="mobile-menu-btn"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            <span className="menu-line"></span>
+            <span className="menu-line"></span>
+            <span className="menu-line"></span>
+          </button>
         </div>
       </header>
 
-      {/* Основной контент */}
-      <main className="scuderri-main-content">
-        <div className="scuderri-content-container">
-          <div className="scuderri-title-section">
-            <h2 className="scuderri-main-title">Scuderia Ferrari</h2>
+      {/* ========== МОБИЛЬНОЕ МЕНЮ ========== */}
+      <div className={`mobile-menu ${isMobileMenuOpen ? "open" : ""}`}>
+        <div className="mobile-menu-content">
+          <ul className="mobile-nav-list">
+            <li className="mobile-nav-item">Главная</li>
+            <li className="mobile-nav-item">Достижения</li>
+            <li className="mobile-nav-item">Болид</li>
+            <li className="mobile-nav-item">Пилоты</li>
+            <li className="mobile-nav-item">Трассы</li>
+            <li className="mobile-nav-item">Новости</li>
+            <li className="mobile-nav-item">Партнеры</li>
+            <li className="mobile-nav-item">Кью</li>
+            <li className="mobile-nav-item">Контакты</li>
+            <li
+              className="mobile-nav-item contact-btn"
+              onClick={() => {
+                setIsModalOpen(true);
+                setIsMobileMenuOpen(false);
+              }}
+            >
+              СВЯЗЬ С КОМАНДОЙ
+            </li>
+          </ul>
+        </div>
+      </div>
 
-            <div className="scuderri-slogan-section">
-              <h2 className="scuderri-slogan-title">
-                Феррари — это больше, чем просто гонки, это итальянская легенда
-                на колесах.
-              </h2>
-            </div>
+      {/* ========== ОСНОВНОЕ СОДЕРЖИМОЕ ========== */}
+      <main className="main-content">
+        <div className="container">
+          <h1 className="main-title">Scuderia Ferrari</h1>
+
+          <div className="main-text">
+            <p className="text-line">ФЕРРАРИ – ЭТО БОЛЬШЕ, ЧЕМ ПРОСТО ГОНКИ,</p>
+            <p className="text-line">ЭТО ИТАЛЬЯНСКАЯ ЛЕГЕНДА НА КОЛЕСАХ.</p>
+          </div>
+
+          {/* Желтая закругленная кнопка */}
+          <button
+            ref={buttonRef}
+            className="contact-button-yellow"
+            onClick={() => setIsModalOpen(true)}
+          >
+            Связь с командой
+          </button>
+
+          {/* Декоративные элементы Vantage */}
+          <div className="vantage-elements">
+            <div className="vantage-text">V vantage</div>
+            <div className="vantage-text">V vantage</div>
           </div>
         </div>
       </main>
 
-      {/* кнопка с формой*/}
-      <button className="ferrari-main-button" onClick={() => setShowForm(true)}>
-        <span className="button-text">СВЯЗЬ С КОМАНДОЙ</span>
-        <span className="button-icon">→</span>
-      </button>
+      {/* ========== МОДАЛЬНОЕ ОКНО ФОРМЫ ========== */}
+      {isModalOpen && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div
+            ref={modalRef}
+            className="modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button className="close-modal" onClick={closeModal}>
+              ×
+            </button>
 
-      {showForm && (
-        <>
-          <div className="modal-backdrop" onClick={() => setShowForm(false)} />
-          <div className="ferrari-modal">
-            <div className="ferrari-modal-header">
-              <h2>
-                <span className="ferrari-red">FERRARI</span> КОНТАКТНАЯ ФОРМА
-              </h2>
-              <button
-                className="ferrari-close-btn"
-                onClick={() => setShowForm(false)}
-              >
-                ✕
-              </button>
-            </div>
+            <h2 className="form-title">СВЯЗЬ С КОМАНДОЙ</h2>
 
-            <div className="ferrari-modal-body">
-              <div className="contact-type-selector">
-                <button
-                  className={`type-btn ${
-                    contactType === "general" ? "active" : ""
-                  }`}
-                  onClick={() => setContactType("general")}
-                >
-                  Общий запрос
-                </button>
-                <button
-                  className={`type-btn ${
-                    contactType === "sponsorship" ? "active" : ""
-                  }`}
-                  onClick={() => setContactType("sponsorship")}
-                >
-                  Спонсорство
-                </button>
-                <button
-                  className={`type-btn ${
-                    contactType === "media" ? "active" : ""
-                  }`}
-                  onClick={() => setContactType("media")}
-                >
-                  Медиа
-                </button>
+            <form onSubmit={handleSubmit} className="contact-form">
+              <div className="form-group">
+                <label htmlFor="name">Ваше имя *</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required
+                  disabled={isSubmitting}
+                  placeholder="Введите ваше имя"
+                />
               </div>
 
-              <form onSubmit={handleSubmit} className="ferrari-form">
-                <div className="form-row">
-                  <div className="form-col">
-                    <label>Имя *</label>
-                    <input
-                      type="text"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                  <div className="form-col">
-                    <label>Фамилия *</label>
-                    <input
-                      type="text"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                </div>
+              <div className="form-group">
+                <label htmlFor="email">Email *</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                  disabled={isSubmitting}
+                  placeholder="example@mail.com"
+                />
+              </div>
 
-                <div className="form-row">
-                  <div className="form-col">
-                    <label>Email *</label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                  <div className="form-col">
-                    <label>Телефон</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      placeholder="+7 (XXX) XXX-XX-XX"
-                    />
-                  </div>
-                </div>
+              <div className="form-group">
+                <label htmlFor="phone">Телефон</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  disabled={isSubmitting}
+                  placeholder="+7 (___) ___-__-__"
+                />
+              </div>
 
-                <div className="form-group">
-                  <label>Тема *</label>
-                  <input
-                    type="text"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleInputChange}
-                    required
-                    placeholder="О чем вы хотите связаться?"
-                  />
-                </div>
+              <div className="form-group">
+                <label htmlFor="message">Сообщение *</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  required
+                  disabled={isSubmitting}
+                  placeholder="Напишите ваше сообщение..."
+                  rows="4"
+                />
+              </div>
 
-                <div className="form-group">
-                  <label>Сообщение *</label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    required
-                    rows="5"
-                    placeholder="Опишите ваш запрос подробно..."
-                  />
+              {submitMessage && (
+                <div className={`submit-message ${submitStatus}`}>
+                  {submitMessage}
                 </div>
+              )}
 
-                <div className="form-footer">
-                  <button type="submit" className="submit-btn">
-                    ОТПРАВИТЬ ЗАПРОС
-                  </button>
-                  <p className="form-note">
-                    Нажимая кнопку, вы соглашаетесь с обработкой персональных
-                    данных
-                  </p>
-                </div>
-              </form>
-            </div>
+              <button
+                type="submit"
+                className="submit-button"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <>
+                    <span className="spinner"></span>
+                    Отправка...
+                  </>
+                ) : (
+                  "Отправить"
+                )}
+              </button>
+            </form>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
