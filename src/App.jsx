@@ -2,6 +2,7 @@ import React from "react";
 import HeadScuderri from "./components/HeadScuderri";
 import Dostizheni from "./components/Dostizheni";
 import News from './components/News';
+import Tracci from './components/Tracci';
 import CarInfo from "./components/CarInfo";
 import DriverCard from "./components/DriverCard";
 import TeamMember from "./components/TeamMember";
@@ -109,6 +110,10 @@ function App() {
           <DriverCard key={index} driver={driver} />
         ))}
       </section>
+
+      <div className="tracci-selection">
+        <Tracci />
+      </div>
     
       <div className="news-section">
         <News />
