@@ -77,6 +77,9 @@ export default function FerrariStaffSlider() {
 
   return (
     <section className="staff-slider">
+      {/* Фоновое изображение */}
+      <div className="staff-background"></div>
+      
       <div className="container">
         <h2 className="title">КЛЮЧЕВЫЕ ФИГУРЫ ШТАБА FERRARI</h2>
 

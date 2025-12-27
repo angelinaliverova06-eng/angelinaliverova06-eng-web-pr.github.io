@@ -5,10 +5,16 @@ import News from './components/News';
 import Tracci from './components/Tracci';
 import CarInfo from "./components/CarInfo";
 import DriverCard from "./components/DriverCard";
-import TeamMember from "./components/TeamMember";
 import SponsorsSlider from "./components/SponsorsSlider";
 import FAQ from "./components/FAQ";
+import StaffSlider from "./components/StaffSlider"; 
 import "./index.css";
+import "./components.css"
+import "./components2.css"
+import "./components3.css"
+import "./components4.css"
+import "./components5.css"
+
 
 function App() {
   const [isPartnersOpen, setIsPartnersOpen] = React.useState(false);
@@ -119,15 +125,9 @@ function App() {
         <News />
       </div>
   
-      <section className="team-section">
-        <h2>Ключевые фигуры штаба Феррари</h2>
-        <div className="team-grid">
-          {teamMembers.map((member, index) => (
-            <TeamMember key={index} member={member} />
-          ))}
-        </div>
-      </section>
-
+      <div className="staff-section">
+        <StaffSlider />
+      </div>
       <section className="sponsors-section">
         <h2>Спонсоры</h2>
         <SponsorsSlider />

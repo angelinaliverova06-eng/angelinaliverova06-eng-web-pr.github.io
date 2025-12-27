@@ -133,6 +133,324 @@
     margin-bottom: 1rem;
 }
 
+
+/* StaffSlider.css */
+.staff-slider {
+  padding: 60px 20px;
+  position: relative; /* Для позиционирования фона */
+  min-height: 100vh; /* Чтобы фон занимал весь экран */
+  overflow: hidden; /* Чтобы фон не выходил за границы */
+}
+
+.staff-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url("../public/фото/background.png"); /* Путь к вашему фото */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+/* Сделаем остальной контент поверх фона */
+.staff-slider .container {
+  position: relative;
+  z-index: 2;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+  color: #e6e6e6;
+  font-size: 32px;
+  margin-bottom: 50px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+.title::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+}
+
+.slider-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.slider-content {
+  background: white;
+  padding: 50px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+  position: relative;
+}
+
+.main-content {
+  display: flex;
+  gap: 50px;
+  align-items: stretch;
+}
+
+.member-card {
+  display: flex;
+  flex: 1;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.image-container {
+  position: relative;
+  width: 220px;
+  height: 300px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.member-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.member-image:hover {
+  transform: scale(1.05);
+}
+
+.image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  border-radius: 10px;
+}
+
+.member-info {
+  flex: 1;
+  color: #333;
+  padding-top: 10px;
+}
+
+.member-name {
+  color: #DC0000;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.member-position {
+  color: #444;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.member-description {
+  color: #666;
+  line-height: 1.7;
+  font-size: 16px;
+  text-align: justify;
+}
+
+/* Навигация с цифрами справа */
+.side-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 0 15px;
+  min-width: 120px;
+}
+
+.nav-button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.nav-button:hover {
+  color: #333333;
+}
+
+.nav-button:active {
+  transform: translateY(-1px);
+}
+
+.nav-button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Цифровая индикация */
+.slide-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  color: #333;
+  padding: 10px 0;
+}
+
+.current-slide {
+  color: #333333;
+  text-align: center;
+}
+
+.counter-divider {
+  font-size: 20px;
+  color: #333333;
+}
+
+.total-slides {
+  color: #333333;
+  font-weight: 600;
+}
+
+/* Адаптивность */
+@media (max-width: 1000px) {
+  .main-content {
+    flex-direction: column;
+    gap: 40px;
+  }
+  
+  .side-navigation {
+    flex-direction: row;
+    order: -1;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 30px;
+    min-width: auto;
+    padding: 0;
+  }
+  
+  .slide-counter {
+    order: -1;
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 8px 15px;
+    border-radius: 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  }
+  
+  .member-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+  }
+  
+  .image-container {
+    width: 200px;
+    height: 270px;
+  }
+  
+  .slider-content {
+    padding: 40px 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .staff-slider {
+    padding: 40px 15px;
+  }
+  
+  .slider-content {
+    padding: 30px 20px;
+  }
+  
+  .title {
+    font-size: 26px;
+    margin-bottom: 40px;
+  }
+  
+  .member-name {
+    font-size: 24px;
+  }
+  
+  .member-position {
+    font-size: 16px;
+  }
+  
+  .member-description {
+    font-size: 15px;
+  }
+  
+  .nav-button {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .current-slide {
+    font-size: 28px;
+  }
+  
+  .total-slides {
+    font-size: 18px;
+  }
+  
+  .image-container {
+    width: 180px;
+    height: 240px;
+  }
+}
+
+/* Анимация смены слайдов */
+@keyframes fadeIn {
+  from {
+    opacity: 0.7;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.member-card {
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* Дополнительный стиль для разделителя на десктопе */
+@media (min-width: 1001px) {
+  .side-navigation::before {
+    content: ' | | | | | | | | | | | | | | | | ';
+    position: absolute;
+    top: 20%;
+    left: -25px;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 75%;
+  }
+  
+  .side-navigation {
+    position: relative;
+  }
+}
+
 /* Sponsors Slider */
 .sponsors-section {
     margin-bottom: 4rem;
