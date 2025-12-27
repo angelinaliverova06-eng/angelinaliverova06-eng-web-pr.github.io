@@ -1,6 +1,7 @@
 import React from "react";
 import HeadScuderri from "./components/HeadScuderri";
 import Dostizheni from "./components/Dostizheni";
+import News from './components/News';
 import CarInfo from "./components/CarInfo";
 import DriverCard from "./components/DriverCard";
 import TeamMember from "./components/TeamMember";
@@ -108,7 +109,11 @@ function App() {
           <DriverCard key={index} driver={driver} />
         ))}
       </section>
-
+    
+      <div className="news-section">
+        <News />
+      </div>
+  
       <section className="team-section">
         <h2>Ключевые фигуры штаба Феррари</h2>
         <div className="team-grid">
