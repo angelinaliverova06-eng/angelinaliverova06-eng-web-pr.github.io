@@ -68,7 +68,7 @@ const DriversCarousel = ({ drivers }) => {
 
   return (
     <section className="drivers-section">
-      <h2 className="section-title">ПИЛОТЫ SCUDERIA FERRARI</h2>
+      <h2 className="section-title">ПИЛОТЫ</h2>
       
       <div className="drivers-grid">
         {/* Левое фото */}

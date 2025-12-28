@@ -1,112 +1,159 @@
-/* РЎС‚РёР»Рё РґР»СЏ С„РѕС‚Рѕ Р±РѕР»РёРґР° */
-.bolide-container {
-    position: relative;
-    width: 100%;
-    margin-top: 3rem;
-    margin-bottom: 0;
-    overflow: hidden;
+/* Стили для секции с фото болида на весь экран */
+.car-info-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh; /* На всю высоту экрана */
+  margin: 2rem 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) inset; /* Тень секции */
+
 }
 
-.bolide-image {
-    width: 100%;
-    height: auto;
-    display: block;
-    position: relative;
-    z-index: 1;
-    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.5));
-}
-
-/* РўРµРЅСЊ РїРѕРґ С„РѕС‚Рѕ */
-.bolide-shadow {
-    position: absolute;
-    bottom: -20px;
-    left: 0;
-    width: 100%;
-    height: 100px;
-    background: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.4) 0%,
-        rgba(0, 0, 0, 0.2) 30%,
-        rgba(0, 0, 0, 0.1) 60%,
-        transparent 100%
-    );
-    z-index: 0;
-    filter: blur(15px);
-    transform: scaleX(1.05); /* РќРµРјРЅРѕРіРѕ СЂР°СЃС€РёСЂСЏРµРј С‚РµРЅСЊ РґР»СЏ СЂРµР°Р»РёСЃС‚РёС‡РЅРѕСЃС‚Рё */
-}
-
-/* РђР»СЊС‚РµСЂРЅР°С‚РёРІРЅС‹Р№ РІР°СЂРёР°РЅС‚ СЃ CSS-С„РёР»СЊС‚СЂР°РјРё РґР»СЏ С‚РµРЅРё */
-.bolide-container::after {
-    content: '';
-    position: absolute;
-    bottom: -30px;
-    left: 5%;
-    width: 90%;
-    height: 30px;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 50%;
-    filter: blur(20px);
-    z-index: 0;
-}
-
-/* РђРґР°РїС‚РёРІРЅРѕСЃС‚СЊ РґР»СЏ С„РѕС‚Рѕ */
-@media (max-width: 768px) {
-    .bolide-container {
-        margin-top: 2rem;
-    }
-    
-    .bolide-image {
-        filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.4));
-    }
-    
-    .bolide-shadow {
-        height: 50px;
-        bottom: -10px;
-        filter: blur(10px);
-    }
-}
-
-/* CarInfo Styles */
-.car-info {
-    background: #f8f8f8;
-    padding: 2rem;
-    border-radius: 8px;
-    margin-bottom: 3rem;
-}
-
-.car-info p {
-    font-size: 1.1rem;
-    text-align: justify;
-}
-
+/* Фоновое изображение болида - на всю ширину */
 .car-info-background {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-size: cover;
-  background-position: center;
+  background-size: contain; /* Изменено с cover на contain */
+  background-position: center center;
   background-repeat: no-repeat;
-  z-index: -1;
-  opacity: 0.3; /* Настрой по желанию */
-}
-
-/* Убедись, что контейнер CarInfo имеет position: relative */
-.car-info {
-  position: relative;
   z-index: 1;
 }
 
-/* Drivers Section */
-.drivers-section {
-  padding: 60px 20px;
+/* Затемнение поверх фона */
+.car-info-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+/* Обертка для центрирования контента */
+.car-info-content-wrapper {
   position: relative;
-  overflow: hidden;
-  background-image: url("../public/фото/numbres-wallaper.png");
-  background-repeat: repeat;
-  background-size: auto;
-  background-color: #f0f0f0; /* Фоновый цвет на случай, если изображение не загрузится */
+  z-index: 3;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Сам контент */
+.car-info-content {
+  padding: 50px;
+  text-align: center;
+  max-width: 800px;
+}
+
+.car-info-title {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #a6051a;
+  margin-bottom: 30px;
+  letter-spacing: 2px;}
+
+.car-info-text {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #333;
+  text-align: justify;
+  padding: 0 20px;
+}
+
+.car-info-text p {
+  margin: 0;
+  color: #a6051a;
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+  .car-info-content {
+    padding: 40px;
+    max-width: 700px;
+  }
+  
+  .car-info-title {
+    font-size: 2.5rem;
+  }
+  
+  .car-info-text {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .car-info-section {
+    min-height: 80vh;
+  }
+  
+  .car-info-content-wrapper {
+    padding: 20px;
+  }
+  
+  .car-info-content {
+    padding: 30px;
+    max-width: 90%;
+  }
+  
+  .car-info-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .car-info-text {
+    font-size: 1rem;
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .car-info-section {
+    min-height: 70vh;
+  }
+  
+  .car-info-content {
+    padding: 25px 20px;
+  }
+  
+  .car-info-title {
+    font-size: 1.8rem;
+  }
+  
+  .car-info-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-align: left; /* На мобильных лучше левое выравнивание */
+  }
+}
+
+/* Drivers Section */
+/* Вместо этого делаем общий фон */
+  .drivers-section {
+    background-image: url("../public/фото/numbres-wallaper.png");
+    background-position: right 0px;
+    background-repeat: no-repeat;
+    background-color: #ffffff;
+  }
+
+.drivers-section::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 400px; /* Фиксированная ширина */
+  height: 100%;
+  background-size: cover;
+  background-position: right center;
+  background-repeat: no-repeat;
+  z-index: 1;
+  pointer-events: none;
 }
 
 .driver-fullname {
@@ -115,7 +162,6 @@
   color: #333333;
   margin: 20px 0 25px 0;
   text-align: center;
-  text-transform: uppercase;
   font-family: 'Gothic60', sans-serif;
   line-height: 1.2;
   letter-spacing: 1px;
@@ -188,7 +234,6 @@
 }
 
 .driver-block {
-  background: rgba(255, 255, 255, 0.05);
   border-radius: 20px;
   padding: 25px;
   display: flex;
@@ -196,7 +241,6 @@
   align-items: center;
   cursor: pointer;
   transition: all 0.4s ease;
-  border: 1px solid rgba(255, 255, 255, 0.1);
   position: relative;
   overflow: hidden;
 }
@@ -261,7 +305,6 @@
   font-weight: 900;
   color: #333333;
   margin: 0 0 5px 0;
-  text-transform: uppercase;
   font-family: 'Gothic60', sans-serif;
 }
 
@@ -285,7 +328,6 @@
   border: none;
   padding: 15px 40px;
   font-weight: 900;
-  text-transform: uppercase;
   border-radius: 30px;
   cursor: pointer;
   font-size: 14px;
@@ -464,7 +506,6 @@
   color: #a41e22;
   font-size: 1.3rem;
   margin-bottom: 20px;
-  text-transform: uppercase;
   font-weight: 900;
   letter-spacing: 1px;
   border-bottom: 2px solid #f0f0f0;
@@ -629,13 +670,13 @@
 }
 
 .section-title {
+  font-family: "Gothic60", serif;
   text-align: center;
   color: #333333;
   font-size: 2.5rem;
   font-weight: 900;
   margin-bottom: 50px;
   letter-spacing: 3px;
-  text-transform: uppercase;
   
 }
 
@@ -719,7 +760,6 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
   padding: 30px 20px;
   color: white;
   display: flex;
@@ -732,19 +772,16 @@
   font-size: 1.3rem;
   font-weight: bold;
   color: #333333;
-  text-transform: uppercase;
   font-family: 'Gothic60', sans-serif;
 }
 
 /* Кнопка под центральным фото */
 .center-driver-button {
   margin-top: 30px;
-  background: linear-gradient(135deg, #a41e22, #d32f2f);
   color: white;
   border: none;
   padding: 18px 45px;
   font-weight: 900;
-  text-transform: uppercase;
   border-radius: 35px;
   cursor: pointer;
   font-size: 16px;
@@ -863,7 +900,6 @@
   font-size: 1rem;
   color: #ffffff;
   font-weight: bold;
-  text-transform: uppercase;
 }
 
 .dialog-quote {
@@ -893,7 +929,6 @@
   color: #a41e22;
   margin-bottom: 15px;
   font-size: 1.3rem;
-  text-transform: uppercase;
   font-weight: 900;
 }
 
@@ -922,7 +957,6 @@
 .stat-label {
   font-size: 0.9rem;
   color: #666;
-  text-transform: uppercase;
   font-weight: bold;
   margin-bottom: 8px;
 }
@@ -1164,7 +1198,6 @@
   border: none;
   padding: 12px 32px;
   font-weight: bold;
-  text-transform: uppercase;
   border-radius: 24px;
   cursor: pointer;
   font-size: 14px;
@@ -1258,7 +1291,6 @@
   color: #e6e6e6;
   font-size: 32px;
   margin-bottom: 50px;
-  text-transform: uppercase;
   letter-spacing: 1px;
   position: relative;
 }
@@ -1305,7 +1337,6 @@
   margin: 0 30px 20px 0; /* Отступы: сверху 0, справа 30px, снизу 20px, слева 0 */
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
   shape-outside: inset(0); /* Для лучшего обтекания текста вокруг изображения */
 }
 
@@ -1316,17 +1347,12 @@
   transition: transform 0.4s ease;
 }
 
-.member-image:hover {
-  transform: scale(1.05);
-}
-
 .image-overlay {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   height: 60%;
-  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
   border-radius: 10px;
 }
 
@@ -1353,7 +1379,7 @@
 }
 
 .member-description {
-  color: #666;
+  color: #333333;
   line-height: 1.7;
   font-size: 16px;
   text-align: justify;
@@ -1530,7 +1556,7 @@
 /* Дополнительный стиль для разделителя на десктопе */
 @media (min-width: 1001px) {
   .side-navigation::before {
-    content: ' | | | | | | | | | | | | | | | | ';
+    content: " | | | | | | | | | | | | | | | | | | | |";
     position: absolute;
     top: 20%;
     left: -25px;
@@ -1544,63 +1570,99 @@
   }
 }
 
-/* Sponsors Slider */
+/* Стили для слайдера спонсоров */
 .sponsors-section {
-    margin-bottom: 4rem;
+  padding: 20px 0;
+  background: #e6e6e6;
+  color: white;
+  overflow: hidden;
+}
+
+.sponsors-title {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 28px;
+  color: #333333;
 }
 
 .slider-container {
-    width: 100%;
-    overflow: hidden;
-    padding: 40px 0;
-    background: #000;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  overflow: hidden;
 }
 
 .slider-track {
-    display: flex;
-    width: max-content;
-    margin-bottom: 20px;
+  display: flex;
+  gap: 40px;
+  height: 100px;
+}
+
+/* Анимация для верхнего ряда (влево) */
+.slider-left {
+  animation: slideLeft 60s linear infinite;
+  width: max-content;
+}
+
+/* Анимация для нижнего ряда (вправо) */
+.slider-right {
+  animation: slideRight 60s linear infinite;
+  width: max-content;
+}
+
+.sponsor-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 150px;
+  pointer-events: none; /* Делаем не кликабельным */
+}
+
+.sponsor-logo-container {
+  height: 80px;
+  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .sponsor-logo {
-    height: 60px;
-    margin: 0 30px;
-    object-fit: contain;
-    transition: transform 0.2s ease;
+  max-height: 120px;
+  max-width: 180px;
+  object-fit: contain;
+  transition: filter 0.3s ease;
 }
 
-.sponsor-logo:hover {
-    transform: scale(1.1);
+.sponsor-name {
+  margin-top: 8px;
+  font-size: 12px;
+  text-align: center;
+  opacity: 0.8;
 }
 
-.slider-left {
-    animation: scrollLeft 30s linear infinite;
+/* Анимации */
+@keyframes slideLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
-.slider-right {
-    animation: scrollRight 30s linear infinite;
-}
-
-@keyframes scrollLeft {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-
-@keyframes scrollRight {
-    0% { transform: translateX(-50%); }
-    100% { transform: translateX(0); }
-}
-
-.slider-track:hover {
-    animation-play-state: paused;
+@keyframes slideRight {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 /* FAQSection.css */
 .faq-section {
     background-color: var(--color-bg-secondary);
-    padding: 80px 0;
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
+    padding: 40px 0;
 }
 
 .faq-section .container {
@@ -1615,7 +1677,6 @@
     text-align: center;
     margin-bottom: 60px;
     color: var(--color-white);
-    text-transform: uppercase;
     letter-spacing: 2px;
 }
 
