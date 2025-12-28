@@ -1,9 +1,15 @@
 import React from 'react';
 import '../components.css';
 
-function CarInfo() {
+function CarInfo({ backgroundImage = '' }) {
   return (
     <>
+      {/* Фоновое изображение, если передано */}
+      {backgroundImage && <div 
+        className="car-info-background"
+        style={{ backgroundImage: `url(${backgroundImage})` }}
+      ></div>}
+      
       <div className="car-info">
         <h2>Болид SF-25</h2>
         <p>
