@@ -1,234 +1,166 @@
-/* Сброс и базовые стили */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.dostizheni-select {
-  width: 100%;
-  min-height: 100vh;
-  background-color: transparent;
-  font-family: "Arial", sans-serif;
-}
-
-/* Контейнер компонента */
+/* Контейнер всей секции достижений */
 .dostizheni-container {
-  width: 100%;
-  min-height: 100vh;
-  background-color: transparent;
-  padding: 60px 80px;
-  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: Arial, sans-serif;
 }
 
-/* Заголовок */
-.main-title {
-  font-size: 72px;
-  font-weight: bold;
-  color: #000000;
-  margin-bottom: 40px;
-  letter-spacing: 1px;
-  text-align: left;
+/* Заголовок "достижения" - красный цвет */
+.dostizheni-title {
+  color: #d32f2f;
+  font-size: 48px;
+  font-weight: 400;
+  text-transform: lowercase;
+  margin: 0 0 8px 0;
+  letter-spacing: -1px;
 }
 
-/* Описание */
-.description-section {
-  margin-bottom: 60px;
-  max-width: 800px;
-}
-
-.form-title {
-  font-size: 36px;
-  font-weight: bold;
-  color: #000000;
-  margin-bottom: 15px;
-}
-
+/* Текст описания - почти без пробела после заголовка */
 .description-text {
-  font-size: 18px;
-  line-height: 1.6;
-  color: #000000;
+  color: #666;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0 0 50px 0;
+  max-width: 900px;
 }
 
-/* Сетка достижений */
+/* Сетка карточек достижений */
 .achievements-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 40px 20px;
-  margin-top: 40px;
+  gap: 40px 30px;
+  margin-top: 60px;
 }
 
+/* Отдельная карточка достижения */
 .achievement-item {
+  position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 300px;
+  gap: 15px;
 }
 
-/* Контейнер для наложения изображений */
-.images-overlay {
+/* Контейнер для двух наложенных изображений 
+   Здесь используется position: relative для создания контекста позиционирования,
+   позволяющего пиктограмме накладываться на букву F */
+.icon-wrapper {
   position: relative;
-  width: 100%;
-  height: 180px;
-  margin-bottom: 15px;
+  width: 80px;
+  height: 80px;
   flex-shrink: 0;
+  margin-bottom: 10px;
 }
 
-/* Буква F */
+/* Буква F - нижний слой (background image) 
+   Позиционируется абсолютно в левом верхнем углу */
 .f-letter {
   position: absolute;
   top: 0;
   left: 0;
-  width: 120px;
-  height: 150px;
-  background-color: #e0e0e0; /* временный цвет для видимости */
+  width: 70px;
+  height: 70px;
+  font-size: 120px;
+  font-weight: 700;
+  color: #d32f2f;
+  line-height: 0.6;
   z-index: 1;
-  /* Для добавления изображения:
-  background-image: url('./F.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  */
+  opacity: 0.15;
 }
 
-/* Пиктограмма */
+/* Пиктограмма - верхний слой (накладывается на букву F)
+   Используем z-index: 2 чтобы она была поверх буквы F
+   Смещаем на 15px вправо и вниз для эффекта наложения */
 .pictogram {
   position: absolute;
-  bottom: 0;
-  right: 10px;
-  width: 80px;
-  height: 100px;
-  background-color: #b0b0b0; /* временный цвет для видимости */
+  top: 15px;
+  left: 15px;
+  width: 50px;
+  height: 50px;
+  font-size: 40px;
   z-index: 2;
-  /* Для добавления изображения:
-  background-image: url('./pictogram.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Текст достижений */
+/* Текст достижения 
+   Используем shape-outside для обтекания вокруг иконок
+   Текст может визуально "заходить" на область иконок благодаря float */
 .achievement-text {
-  flex: 1;
-  color: #000000;
-}
-
-.achievement-number {
-  font-size: 32px;
-  font-weight: bold;
-  color: #000000;
-  margin-bottom: 10px;
-}
-
-.achievement-text ul {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-.achievement-text li {
+  color: #d32f2f;
   font-size: 14px;
   line-height: 1.4;
-  color: #000000;
-  margin-bottom: 8px;
-  padding-left: 0;
+  margin: 0;
+  text-transform: lowercase;
+  /* Обтекание текста вокруг иконок */
+  clear: none;
 }
 
-.achievement-item.empty {
-  opacity: 0.3;
-}
-
-/* Адаптивность */
-@media (max-width: 1400px) {
-  .achievements-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px 20px;
-  }
-}
-
-@media (max-width: 1200px) {
-  .dostizheni-container {
-    padding: 50px 60px;
-  }
-
-  .main-title {
-    font-size: 60px;
-  }
-
+/* Адаптивная верстка для мобильных устройств */
+@media (max-width: 1024px) {
   .achievements-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 992px) {
-  .dostizheni-container {
-    padding: 40px 50px;
-  }
-
-  .main-title {
-    font-size: 48px;
-  }
-
-  .form-title {
-    font-size: 28px;
-  }
-
-  .description-text {
-    font-size: 16px;
-  }
-
-  .achievement-number {
-    font-size: 28px;
+    gap: 40px 20px;
   }
 }
 
 @media (max-width: 768px) {
-  .dostizheni-container {
-    padding: 30px 40px;
-  }
-
-  .achievements-grid {
-    grid-template-columns: 1fr;
-    gap: 25px;
-  }
-
-  .images-overlay {
-    height: 150px;
-  }
-
-  .f-letter {
-    width: 100px;
-    height: 130px;
-  }
-
-  .pictogram {
-    width: 70px;
-    height: 90px;
-  }
-}
-
-@media (max-width: 576px) {
-  .dostizheni-container {
-    padding: 20px 30px;
-  }
-
-  .main-title {
+  .dostizheni-title {
     font-size: 36px;
-    margin-bottom: 30px;
-  }
-
-  .form-title {
-    font-size: 24px;
   }
 
   .description-text {
-    font-size: 15px;
+    font-size: 14px;
+    margin-bottom: 40px;
   }
 
-  .achievement-number {
-    font-size: 24px;
+  /* На мобильной версии: 2 колонки, 4 ряда */
+  .achievements-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 35px 15px;
+    margin-top: 40px;
   }
 
-  .achievement-text li {
+  .icon-wrapper {
+    width: 60px;
+    height: 60px;
+  }
+
+  .f-letter {
+    font-size: 90px;
+    width: 55px;
+    height: 55px;
+  }
+
+  .pictogram {
+    font-size: 30px;
+    width: 40px;
+    height: 40px;
+    top: 12px;
+    left: 12px;
+  }
+
+  .achievement-text {
     font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dostizheni-container {
+    padding: 30px 15px;
+  }
+
+  .main-dostizheni {
+    font-size: 28px;
+    margin-bottom: 6px;
+  }
+
+  .description-text {
+    font-size: 13px;
+  }
+
+  .achievements-grid {
+    gap: 30px 12px;
   }
 }

@@ -1,127 +1,95 @@
-import React from "react";
 import "../components3.css";
 
 const Dostizheni = () => {
   return (
     <div className="dostizheni-container">
-      <h1 className="main-title">#ДОСТИЖЕНИЯ</h1>
+      <h1 className="main-dostizheni">достижения</h1>
 
-      <div className="description-section">
-        <div className="form-title">Форма 1</div>
-        <p className="description-text">
-          — НЕ ПРОСТО КОМАНДА «ВСЕМУЛЬТ» В ЦЕЛАХ ЭПОВ (1 БОЛУСЛОВНЫЙ
-          РОКОРДСМЕНЦИРОВОГО ШППОСПОРТА).
-          <br />
-          Легендарная скудерая обладают самым внешневысоким опытом доступных и в
-          целом вычислительная, который продолжает пополняться уже более семи
-          десятилетий.
-        </p>
-      </div>
+      <p className="description-text">
+        феррари — не просто команда «формулы-1», а целая эпоха и безусловный
+        рекордсмен мирового автоспорта. легендарная скудерия обладает самым
+        внушительным списком достижений в истории чемпионата, который продолжает
+        пополняться уже более семи десятилетий.
+      </p>
 
       <div className="achievements-grid">
-        {/* Ряд 1 */}
         <div className="achievement-item">
-          <div className="images-overlay">
-            <div className="f-letter"></div>
-            <div className="pictogram"></div>
+          <div className="icon-wrapper">
+            <div className="f-letter">F</div>
+            <div className="pictogram">📅</div>
           </div>
-          <div className="achievement-text">
-            <h3 className="achievement-number">11</h3>
-            <ul>
-              <li>
-                участие с самого первого сезона чемпионата мира в 1960 году
-              </li>
-              <li>нашельшее количество полюса - более 250</li>
-            </ul>
-          </div>
+          <p className="achievement-text">
+            участие с самого первого сезона чемпионата мира в 1950 году
+          </p>
         </div>
 
         <div className="achievement-item">
-          <div className="images-overlay">
-            <div className="f-letter"></div>
-            <div className="pictogram"></div>
+          <div className="icon-wrapper">
+            <div className="f-letter">F</div>
+            <div className="pictogram">🏁</div>
           </div>
-          <div className="achievement-text">
-            <h3 className="achievement-number">12</h3>
-            <ul>
-              <li>ставят более чем в это гранту</li>
-              <li>изучение конструкторов – абсолютный рекорд</li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Ряд 2 */}
-        <div className="achievement-item">
-          <div className="images-overlay">
-            <div className="f-letter"></div>
-            <div className="pictogram"></div>
-          </div>
-          <div className="achievement-text">
-            <h3 className="achievement-number">13</h3>
-            <ul>
-              <li>нашельшее количество поезда в гонках - более 245</li>
-            </ul>
-          </div>
+          <p className="achievement-text">старт более чем в 1070 гран-при</p>
         </div>
 
         <div className="achievement-item">
-          <div className="images-overlay">
-            <div className="f-letter"></div>
-            <div className="pictogram"></div>
+          <div className="icon-wrapper">
+            <div className="f-letter">F</div>
+            <div className="pictogram">🏆</div>
           </div>
-          <div className="achievement-text">
-            <h3 className="achievement-number">14</h3>
-            <ul>
-              <li>в пштуков чемпионатера и пилотов – абсолютный рекорд</li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Ряд 3 */}
-        <div className="achievement-item">
-          <div className="images-overlay">
-            <div className="f-letter"></div>
-            <div className="pictogram"></div>
-          </div>
-          <div className="achievement-text">
-            <h3 className="achievement-number">15</h3>
-            <ul>
-              <li>нашельшее количество подъемов - более 800</li>
-            </ul>
-          </div>
+          <p className="achievement-text">
+            наибольшее количество побед в гонках - более 245
+          </p>
         </div>
 
         <div className="achievement-item">
-          <div className="images-overlay">
-            <div className="f-letter"></div>
-            <div className="pictogram"></div>
+          <div className="icon-wrapper">
+            <div className="f-letter">F</div>
+            <div className="pictogram">🎯</div>
           </div>
-          <div className="achievement-text">
-            <h3 className="achievement-number">16</h3>
-            <ul>
-              <li>
-                единственная команда для которого можно относиться к сущности
-                вечера
-              </li>
-            </ul>
-          </div>
+          <p className="achievement-text">
+            наибольшее количество подиумов - более 800
+          </p>
         </div>
 
-        {/* Ряд 4 - пустые блоки для завершения сетки */}
-        <div className="achievement-item empty">
-          <div className="images-overlay">
-            <div className="f-letter"></div>
-            <div className="pictogram"></div>
+        <div className="achievement-item">
+          <div className="icon-wrapper">
+            <div className="f-letter">F</div>
+            <div className="pictogram">🏅</div>
           </div>
-          <div className="achievement-text"></div>
+          <p className="achievement-text">
+            наибольшее количество полюсов - более 250
+          </p>
         </div>
 
-        <div className="achievement-item empty">
-          <div className="images-overlay">
-            <div className="f-letter"></div>
-            <div className="pictogram"></div>
+        <div className="achievement-item">
+          <div className="icon-wrapper">
+            <div className="f-letter">F</div>
+            <div className="pictogram">💎</div>
           </div>
-          <div className="achievement-text"></div>
+          <p className="achievement-text">
+            16 кубков конструкторов – абсолютный рекорд
+          </p>
+        </div>
+
+        <div className="achievement-item">
+          <div className="icon-wrapper">
+            <div className="f-letter">F</div>
+            <div className="pictogram">🏆</div>
+          </div>
+          <p className="achievement-text">
+            15 титулов чемпионов среди пилотов – абсолютный рекорд
+          </p>
+        </div>
+
+        <div className="achievement-item">
+          <div className="icon-wrapper">
+            <div className="f-letter">F</div>
+            <div className="pictogram">🔧</div>
+          </div>
+          <p className="achievement-text">
+            единственная команда, для которой гонки – это основа и сущность
+            бренда
+          </p>
         </div>
       </div>
     </div>
